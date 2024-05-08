@@ -1,20 +1,24 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
+  const [accounts, setAccounts] = useState([])
   useEffect(() => {
-    fetch('/api')
+    fetch('/accounts')
     .then((response) => response.json())
-    .then((result) => {
-      alert(`Hello ${result.hello}`)
-    })
+    .then(data => setAccounts(data))
   }, [])
 
 
   return (
-    <>
-
-    </>
+    <div>
+      <h1>Accounts</h1>
+      <ul>
+        {accounts.map((account) =>
+          <li key={account.id}>{account.email}</li>
+        )}
+      </ul>
+    </div>
   )
 }
 
